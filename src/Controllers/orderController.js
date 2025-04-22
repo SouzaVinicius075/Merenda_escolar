@@ -12,7 +12,13 @@ const getOrders = async (req, res) =>{
 
 const createOrder = async (req, res) =>{
     try {
-        const orderCreated = await orderModel.create(req.body)
+        const {data_entrega, creche, pre_escola, fund, func, tipo_ref} = req.body
+        const {} = req.body.user
+        const orderCreated = await orderModel.create({
+            data_entrega, creche, pre_escola, fund, func, tipo_ref, 
+        })
+    
+        
         return res.status(201).json(orderCreated)
     } catch (error) {
         

@@ -27,30 +27,27 @@ const  createUser = async (req, res) =>{
     }
 }
 const SwitchUserStatus = async (req, res) =>{
+    const {usr_email, option} = req.body
+    const switchUserStatus = await userModel.toggleStatus(usr_email,option)
+    if(!switchUserStatus)
+        return res.status(400).json({'Mensagem': 'Email não encontrado'})
+
+    return res.status(200).json(switchUserStatus)
+}
+
+const updateUser = async (req, res) =>{
     try {
-        const {usr_email, usr_option} = req.body
-        if(usr_option){
-            const userActived = await userModel.inative(usr_email)
+        const userUpdated = await userModel.update(req.body)
 
-        
-            if(userActived){
-                return res.status(201).json(userActived)
-    }   else{
-            return res.status(400).json({'Mensagem': 'Email não encontrado'})
-    }}else {
-        const userInactived = await userModel.inative(usr_email)
+        if(!userUpdated)
+            return res.status(501)
 
-        
-        if(userInactived){
-            return res.status(200).json(userInactived)
-    } else{
-            return res.status(400).json({'Mensagem': 'Email não encontrado'})
-    }
-}} catch (error) {
-    return res.status(500).json({'Mensagem': error.message})
+        return res.status(200).json(userUpdated)
+    } catch (error) {
+        return res.status(501).json({'Mensagem': error.message})
     }
 }
 
 export default{
-    getUser,createUser, SwitchUserStatus
+    getUser,createUser, SwitchUserStatus, updateUser
 }

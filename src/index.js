@@ -4,6 +4,7 @@ import cors from 'cors';
 import userRoutes from './Routes/userRoutes.js'
 import schoolRoutes from './Routes/schoolroutes.js'
 import orderRoutes from './Routes/orderRoutes.js'
+import loginRoutes from './Routes/loginRoutes.js'
 
 const app = express();
 /*app.use(cors({
@@ -13,6 +14,7 @@ const app = express();
 }));*/
 
 app.use(express.json());
+app.use('/', loginRoutes)
 app.use('/user', userRoutes)
 app.use('/school', schoolRoutes)
 app.use('/order', orderRoutes)

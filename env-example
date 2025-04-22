@@ -1,0 +1,12 @@
+#Variáveis referente a coneão com o banco
+DB_CLIENT=pg
+DB_HOST="localhost"
+DB_PORT=5432
+DB_USER="User Banco"
+DB_PWD="Senha Banco"
+DB_DATABASE="Nome Banco"
+
+APP_URL=http://localhost
+APP_PORT=3000
+
+JWT_SECRET=SECUREJWT

@@ -25,11 +25,9 @@ const create = async (order)=>{
                 'data_entrega':order.data_entrega
             })
             .first()
-    ){
-        
-        
+    ){      
         return false}
-        
+
         const createOrder = await database('pedidos')
         .insert(order)
         .returning('*')
