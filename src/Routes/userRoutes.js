@@ -5,7 +5,8 @@ const routes = express.Router();
 
 routes
 .post("/", userController.createUser)
-.patch('/',userController.inactiveUser)
+//.patch('/', userController.updateUser)
+.get('/', userController.getUser)
 ;
 
 //routes.use(validateToken.validate)

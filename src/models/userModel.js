@@ -1,17 +1,17 @@
 import database from '../Config/database.js'
 import bcrypt from 'bcrypt'
 
-const getByEmail = async (email) =>{
-    const getUserByEmail = await database('usuarios')
-    .where({'email': email})
-    .first()
-    .returning('*');
-    
-    if (!getByEmail){
-        return false
-    }
-    return getUserByEmail
-}
+const getByEmail = async (_email) => {
+    const query = database('usuarios');
+
+    const result = _email 
+        ? await query.where({ email: _email }).first() 
+        : await query;
+
+    if (!result && _email) return false;
+    return result;
+};
+
 const insert = async(nome,email, senha, acesso) =>{
     
     if(await getByEmail(email)){
@@ -39,6 +39,7 @@ const inactive = async(email) =>{
     
     return inactiveUser
 }
+
 const active = async (email) =>{
     if(!await getByEmail(email)){
         return false

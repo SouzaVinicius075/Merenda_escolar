@@ -1,0 +1,93 @@
+
+-- criação de tabelas
+create table zonas(
+  id serial primary key,
+  nome varchar(15)
+);
+-- inserção de dados na tablea
+insert into zonas (nome) values ('urbana'), ('rural');
+--
+create table acessos (
+	id serial primary key,
+  nome varchar(10)
+);
+insert into acessos (nome) values ('admin'), ('diretor');
+
+create table usuarios(
+  
+  id serial primary key,
+  acesso int references acessos(id),
+	nome varchar(40) not null,
+	email varchar(30) not null,
+	senha varchar(100) not null,
+  ativo bool default true
+);
+
+insert into usuarios (acesso, nome, email, senha) values
+(1, 'Bira da Silva', 'bira@email.com', 'bira')
+,(2, 'Zeca dos Santos', 'zeca@email','zeca')
+,(2 ,'Igor Pires', 'igor@email', 'igor');
+
+create table escolas(
+	id serial primary key,
+	nome varchar(140) not null,
+  zona int references zonas(id),
+	endereco varchar(140) not null,
+  gestorid int references usuarios(id)
+);
+insert into escolas ( nome, zona, endereco, gestorid) values
+('CEECR',1,'RUA DA ARGILA S/N',2) 
+,('CEHAS',2,'RUA A S/N',3);
+
+create table refeicoes (
+  id serial primary key,
+  nome varchar(15)
+);
+insert into refeicoes (nome) values 
+('DESJEJUM')
+,('LANCHE1')
+,('ALMOCO')
+,('LANCHE2')
+,('CAFE L');
+
+create table pedidos (
+  id serial primary key,
+  data_pedido timestamp default NOW(),
+  data_entrega date not null,
+  creche int default 0,
+  pre_escola int default 0,
+  fund int default 0,
+  func int default 0,
+	tipo_ref int references refeicoes(id),
+	escola_id int references escolas(id)
+  entregue bool default false
+);
+
+
+insert into pedidos 
+(data_entrega, creche, pre_escola, fund, func, tipo_ref)
+values 
+('2025-04-17', 10,20,30,40,1,1),
+('2025-04-17', 10,20,30,40,2,1),
+('2025-04-17', 10,20,30,40,3,1),
+('2025-04-17', 10,20,30,40,4,1),
+('2025-04-17', 10,20,30,40,5,1),
+('2025-04-17', 10,20,30,40,1,2),
+('2025-04-17', 10,20,30,40,2,2),
+('2025-04-17', 10,20,30,40,3,2),
+('2025-04-17', 10,20,30,40,4,2),
+('2025-04-17', 10,20,30,40,5,2);
+
+create table entregas (
+  id serial primary key,
+  id_pedido int references pedidos(id),
+  creche int default 0,
+  pre_escola int default 0,
+  fund int default 0,
+  func int default 0
+);
+
+insert into entregas (id_pedido, creche, pre_escola, fund, func)
+values 
+(1, 10,20,30,40),
+(2, 10,20,30,40);
