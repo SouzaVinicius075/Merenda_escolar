@@ -3,6 +3,7 @@ import express from 'express';
 import cors from 'cors';
 import userRoutes from './Routes/userRoutes.js'
 import schoolRoutes from './Routes/schoolroutes.js'
+import orderRoutes from './Routes/orderRoutes.js'
 
 const app = express();
 /*app.use(cors({
@@ -14,6 +15,7 @@ const app = express();
 app.use(express.json());
 app.use('/user', userRoutes)
 app.use('/school', schoolRoutes)
+app.use('/order', orderRoutes)
 
 app.listen(process.env.APP_PORT, () => {
     console.log(`Server running on ${process.env.APP_URL}:${process.env.APP_PORT}/`);
