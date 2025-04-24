@@ -14,7 +14,7 @@ const validate = async (req, res, next) => {
         if (!userLogged) {
             return res.status(404).json({ mensagem: 'Usuário não encontrado.' });
         }
-        const { user_password, ...user } = userLogged;
+        const { senha, ...user } = userLogged;
         req.user = user;
 
         next();
@@ -36,7 +36,11 @@ const isAdminUser = async (req, res, next) => {
     }
     next();
 }
+const isSchool = async (req, res, next) =>{
+    const {id} = req.user
+    
+}
 
 export default {
-    validate, isAdminUser
+    validate, isAdminUser, isSchool
 };

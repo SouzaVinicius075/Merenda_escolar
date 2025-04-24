@@ -1,15 +1,33 @@
 import userModel from '../models/userModel.js'
+import bcrypt from 'bcrypt'
+import jwt from 'jsonwebtoken'
 
 const login = async (req, res) =>{
-
     try {
         const {usr_email, usr_pwd} = req.body
-        const loginUser = await userModel.validate(usr_email, usr_pwd)
 
-        if(!loginUser)
-            return res.status(500).json({'Mensagem':'Usuário ou senha incorretos' })
+        const verifyUser = await userModel.getUserDetailed(usr_email)
+       
+        if(!verifyUser || !await bcrypt.compare(usr_pwd, verifyUser.senha )){
+            return res.status(500).json({'Mensagem':'Usuário ou senha incorretos' }) 
+        }
         
-        return res.status(200).json({'Token':loginUser})
+
+        const token = jwt.sign(
+                    {
+                        id: verifyUser.id,
+                        nome: verifyUser.nome,
+                        email: verifyUser.email,
+                        acesso: verifyUser.acesso,
+                        nomeEscola: verifyUser.nome_escola,
+                        idEscola: verifyUser.id_escola
+                    },
+                    process.env.JWT_SECRET,
+                    {
+                        expiresIn: "2h"
+                    })
+
+        return res.status(200).json({'Token':token})
     } catch (error) {
         return res.status(500).json({'Mensagem': error.message})   
     }

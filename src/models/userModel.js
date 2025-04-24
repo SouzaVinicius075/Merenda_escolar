@@ -1,5 +1,4 @@
 import database from '../Config/database.js'
-import jwt from 'jsonwebtoken'
 import bcrypt from 'bcrypt'
 
 const getById = async(id)=>{
@@ -25,51 +24,30 @@ const getByEmail = async (_email) => {
     
     return result;
 };
-const validate = async(email, pwd)=>{
+const getUserDetailed = async(email)=>{
     try {
         const user = await database('usuarios')
-            .select('usuarios.id', 'usuarios.nome', 'usuarios.email', 'usuarios.acesso', 'escolas.nome as nome_escola', 'escolas.id as id_escola', 'usuarios.senha as senha' ,'usuarios.ativo')
-            .leftJoin('escolas', 'usuarios.id', 'escolas.gestorid')
-            .where({'usuarios.email': email})
-            .first()
+        .select('u.id', 'u.nome', 'u.email', 'u.acesso', 'e.nome as nome_escola', 'e.id as id_escola', 'u.senha' ,'u.ativo', 'a.nome as tipo_acesso')
+        .from('usuarios as u')
+        .leftJoin('escolas as e', 'u.id', 'e.gestorid')
+        .join('acessos as a', 'u.acesso','a.id')
+        .where({'u.email': email})
+        .first();
 
-        
-        if(!user || await bcrypt.compare(pwd, user.senha) && !user.ativo)
-            return false
-
-        const token = jwt.sign(
-            {
-                id: user.id,
-                nome: user.nome,
-                email: user.email,
-                acesso: user.acesso,
-                nomeEscola: user.nome_escola,
-                idEscola: user.id_escola
-            },
-            process.env.JWT_SECRET,
-            {
-                expiresIn: "2h"
-            })
-        return token
-        
+        return user
     } catch (error) {
-        return error
+        console.log(error.message);
+        
     }
 }
-
 const insert = async(nome,email, senha, acesso) =>{
-    
-    if(await getByEmail(email)){
-        return false;
-        }
-    
-    const senhaCriptografada = await bcrypt.hash(senha,10)
-    const insertUser = await database('usuarios').insert({
-        email,
-        acesso,
-        nome,
-        'senha':senhaCriptografada
-    }).returning('*')
+    const insertUser = await database('usuarios')
+        .insert({
+            email,
+            acesso,
+            nome,
+            senha
+    })  .returning('*')
     return insertUser
 }
 const toggleStatus = async (email, option)=>{
@@ -95,31 +73,5 @@ const update = async(fields)=>{
     
     return userUpdated
 }
-/*
-const inactive = async(email) =>{
-    if(!await getByEmail(email)){
-        return false
-    }
-    const inactiveUser = await database('usuarios')
-    .where({'email':email})
-    .update({'ativo': false})
-    .returning('*');
 
-    
-    return inactiveUser
-}
-
-const active = async (email) =>{
-    if(!await getByEmail(email)){
-        return false
-    }
-    
-    const activeUser = await database('usuarios')
-    .where({'email':email})
-    .update({'ativo': true})
-    .returning('*');
-
-    return activeUser
-}*/
-
-export default {getByEmail, insert, validate, toggleStatus, update}
+export default {getByEmail, insert, toggleStatus, update, getUserDetailed}

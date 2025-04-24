@@ -4,7 +4,7 @@ import validateToken from "../middleware/validateToken.js";
 const routes = express.Router();
 
 
-routes.use(validateToken.validate)
+//routes.use(validateToken.validate)
 routes
     .get('/', orderController.getOrders)
     .post('/', orderController.createOrder)

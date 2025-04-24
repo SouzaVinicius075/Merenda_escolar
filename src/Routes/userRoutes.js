@@ -3,7 +3,7 @@ import userController from "../Controllers/userController.js";
 const routes = express.Router();
 
 routes
-.post("/", userController.createUser)
+.post("/", userController.create)
 .delete('/', userController.SwitchUserStatus)
 .get('/', userController.getUser)
 .patch('/', userController.updateUser)
