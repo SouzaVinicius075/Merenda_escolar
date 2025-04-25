@@ -9,10 +9,15 @@ const get = async()=>{
     }
 }
 const getByFilter = async (filter)=>{
-    const getOrderByFilter = await database('pedidos')
+    try {
+        
+        const getOrderByFilter = await database('pedidos')
         .where(filter)
-    
-    return getOrderByFilter
+        
+        return getOrderByFilter
+    } catch (error) {
+     return error.message   
+    }
 }
 const getById = async(id)=>{
     try {
@@ -30,14 +35,15 @@ const getDetailed = async(filter)=>{
         const getorderDetailed = await database('pedidos')
             .select(
                 'ped.id as pedidoId',
+                'esc.id as escola_id',
                 'esc.nome as nome_escola',
                 'ped.data_pedido', 
-                'ped.data_entrega', 
-                'ref.nome as Refeicao',
-                'ped.creche as ped_creche', 
-                'ped.pre_escola as ped.p_pre_escola', 
-                'ped.fund as ped.fundamental', 
-                'ped.func as ped_funcionarios',
+                'ped.data_entrega as data_entrega', 
+                'ref.nome as refeicao_nome',
+                'ped.creche as p.creche', 
+                'ped.pre_escola as p.pre_escola', 
+                'ped.fund as p.fundamental', 
+                'ped.func as p.funcionarios',
                 'ent.creche',
                 'ent.pre_escola',
                 'ent.fund as fundamental', 
@@ -45,7 +51,7 @@ const getDetailed = async(filter)=>{
                 'ped.entregue' 
             )
             .from('pedidos as ped')
-            .join('entregas as ent','ped.id', 'ent.id_pedido')
+            .leftJoin('entregas as ent','ped.id', 'ent.id_pedido')
             .join('escolas as esc', 'ped.escola_id','esc.id' )
             .join('refeicoes as ref', 'ped.tipo_ref', 'ref.id')
             .where(filter)

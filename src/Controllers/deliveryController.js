@@ -13,25 +13,64 @@ const getDelivery = async(req, res)=>{
 }
 }
 const registerDelivery = async (req, res)=>{
-    /* 1 - Ir na tabela de pedidos e retornar todos pedidos daquela escola, naquele dia
-        2 - Validar se o valor requisitado não é maior que o valor pedido
-    */
-    const dayOrders = await orderModel.getByFilter({
-        escola_id, date
-    })
-    for (const order of dayOrders){
-        const insertDelivery = await deliveryModel.create({
-            id_pedido
-            ,creche
-            ,pre_escola
-            ,fund
-            ,func
+   try {
+    const {data_entrega, escola_id, tipo, orders} = req.body
+    if(tipo == 'parcial'){
+        // Pendente validar se a quantidade parcial não exceder o pedido
+        for (let order of orders){
+            const deliveryPartial = await orderModel.getDetailed({
+            'ref.nome':order.tipo,
+            'escola_id': escola_id,
+            'data_entrega':data_entrega
         })
-        const switchStatusOrder = await orderModel.update({
-            entregue: true
-            ,id_pedido
-        })
+        
+        if (deliveryPartial.length == 0){
+            continue
+        }
+        if(deliveryPartial[0].entregue)
+            continue
+
+        await deliveryModel.create({
+            'id_pedido':deliveryPartial[0].pedidoId
+            ,'creche': order.creche
+            ,'pre_escola': order.pre_escola
+            ,'fund': order.fund
+            ,'func': order.func
+        })           
+            const switchStatusOrder = await orderModel.update(deliveryPartial[0].pedidoId,{'entregue': true})        
     }
+    return res.json({'Mensagem':'Pedido parcial cadastrado com sucesso'})
+    }
+    const dayOrders = await orderModel.getByFilter({
+            
+        escola_id, data_entrega
+    })
+
+  
+    for (let order of dayOrders){
+        if(dayOrders.length == 0)
+            continue
+
+        
+        if(order.entregue)
+            continue
+        
+         await deliveryModel.create({
+            'id_pedido':order.id
+            ,'creche': order.creche
+            ,'pre_escola': order.pre_escola
+            ,'fund': order.fund
+            ,'func': order.func
+        })
+        const switchStatusOrder = await orderModel.update(order.id,{'entregue': true})
+       
+    }
+    
+    return res.status(200).json({'Mensagem':'oq'})
+}
+         catch (error) {
+            
+        }
 }
 
 export default {getDelivery, registerDelivery}

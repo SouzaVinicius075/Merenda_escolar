@@ -34,13 +34,13 @@ const getByFilter = async (filter)=>{
         return error.message
     }
 }
-const create = async (orderId,description)=>{
-    const deliveryExists = await database('entregas')
+const create = async (description)=>{
+    /*const deliveryExists = await database('entregas')
         .where({'id_pedido': orderId})
         .first();
 
     if(deliveryExists)
-        return false
+        return false*/
 
     const insertDelivery = await database('entregas')
         .insert(description)

@@ -1,6 +1,9 @@
 
 import database from '../Config/database.js'
-
+const getAll = async()=>{
+    const getAllSchools = await database('escolas')
+    return getAllSchools
+}
 const getById = async(_filter)=>{
     if(_filter){
         const result = await database('escolas')
@@ -36,5 +39,5 @@ const toggleStatus = async()=>{
 
 }
 export default {
-    getById, create, update, toggleStatus
+    getById, create, update, toggleStatus, getAll
 }   

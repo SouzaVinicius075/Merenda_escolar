@@ -91,3 +91,8 @@ insert into entregas (id_pedido, creche, pre_escola, fund, func)
 values 
 (1, 10,20,30,40),
 (2, 10,20,30,40);
+
+create table tokens (
+  id int references escolas(id),
+  token varchar(100)
+)
