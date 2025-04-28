@@ -8,13 +8,12 @@ const validate = async (req, res, next) => {
             return res.status(401).json({ mensagem: 'Usuário não autorizado!' });
         }
         let token = authorization.replace('Bearer ', '').trim();
-        const { email } = jwt.verify(token, process.env.JWT_SECRET);
+        const userLogged = jwt.verify(token, process.env.JWT_SECRET);
 
-        const userLogged = await userModel.getByEmail(email);
-        if (!userLogged) {
+        if (!await userModel.getByEmail(userLogged.email)) {
             return res.status(404).json({ mensagem: 'Usuário não encontrado.' });
         }
-        const { senha, ...user } = userLogged;
+        const { senha,iat, exp, ...user } = userLogged;
         req.user = user;
 
         next();
@@ -37,8 +36,13 @@ const isAdminUser = async (req, res, next) => {
     next();
 }
 const isSchool = async (req, res, next) =>{
-    const {id} = req.user
-    
+    const {nome_escola} = req.user
+    if(!nome_escola)
+        return res.status(301).json({
+            "mensagem":
+                'O usuário não possui a autorização necessária para acessar este recurso.',
+        });
+    next()
 }
 
 export default {

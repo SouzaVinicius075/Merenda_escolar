@@ -1,5 +1,5 @@
 import schoolModel from "../models/schoolModel.js";
-
+import userModel from '../models/orderModel.js'
 const getSchool = async (req, res)=>{
     try {
         const schools = await schoolModel.getById()
@@ -20,7 +20,20 @@ const createSchool = async (req, res) =>{
     }
 }
 
+const schoolDashboard = async(req, res)=>{
+   try {
+    const {idEscola} = req.user
+    console.log(req.user);
+    
+    const userDashboard = await userModel.getDetailed({'esc.id':idEscola})
+    return res.status(200).json({userDashboard})
+   } catch (error) {
+    
+   }
+}
+
 export default {
     getSchool,
-    createSchool
+    createSchool,
+    schoolDashboard
 }

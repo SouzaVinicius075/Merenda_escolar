@@ -16,7 +16,7 @@ const getByFilter = async (filter)=>{
         
         return getOrderByFilter
     } catch (error) {
-     return error.message   
+     return false
     }
 }
 const getById = async(id)=>{
@@ -44,10 +44,10 @@ const getDetailed = async(filter)=>{
                 'ped.pre_escola as p.pre_escola', 
                 'ped.fund as p.fundamental', 
                 'ped.func as p.funcionarios',
-                'ent.creche',
-                'ent.pre_escola',
-                'ent.fund as fundamental', 
-                'ent.func as funcionarios', 
+                'ent.creche as e.creche',
+                'ent.pre_escola as e.pre_escola',
+                'ent.fund as e.fundamental', 
+                'ent.func as e.funcionarios', 
                 'ped.entregue' 
             )
             .from('pedidos as ped')
@@ -64,19 +64,6 @@ const getDetailed = async(filter)=>{
 
 const create = async (order)=>{
     try {
-        console.log(order);
-        
-        if(
-            await database('pedidos')
-            .where({
-                'escola_id':order.escola_id,
-                'tipo_ref':order.tipo_ref,
-                'data_entrega':order.data_entrega
-            })
-            .first()
-
-    )       return false
-
         const createOrder = await database('pedidos')
         .insert(order)
         .returning('*')
@@ -90,7 +77,6 @@ const update = async (id, value)=>{
         .update(value)
         .where({'id':id})
         .returning('*');
-
     return updateOrder
 }
 

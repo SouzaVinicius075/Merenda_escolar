@@ -4,7 +4,17 @@ const get = async ()=>{
     try {
         
         const getDeliveryBySchool = await database('pedidos')
-            .select('p.id as pedidoId', 'p.data_pedido', 'p.data_entrega', 'p.creche', 'p.pre_escola', 'p.fund as fundamental', 'p.func as funcionarios','r.nome as tipo_ref', 'e.nome as nome escola', 'p.entregue')
+            .select(
+                'p.id as pedidoId'
+                ,'p.data_pedido'
+                ,'p.data_entrega'
+                ,'p.creche'
+                ,'p.pre_escola'
+                ,'p.fund as fundamental'
+                ,'p.func as funcionarios'
+                ,'r.nome as tipo_ref'
+                ,'e.nome as nome_escola'
+                ,'p.entregue')
             .from('pedidos as p')
             .join('refeicoes as r', 'p.tipo_ref', 'r.id')
             .join('escolas as e', 'p.escola_id', 'e.id')
