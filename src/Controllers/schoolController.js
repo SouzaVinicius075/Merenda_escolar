@@ -1,5 +1,9 @@
 import schoolModel from "../models/schoolModel.js";
 import userModel from '../models/orderModel.js'
+import transporter from "../services/nodemailer.js";
+
+import schedules from '../services/schedules.js'
+
 const getSchool = async (req, res)=>{
     try {
         const schools = await schoolModel.getById()
@@ -23,12 +27,20 @@ const createSchool = async (req, res) =>{
 const schoolDashboard = async(req, res)=>{
    try {
     const {idEscola} = req.user
-    console.log(req.user);
-    
     const userDashboard = await userModel.getDetailed({'esc.id':idEscola})
+
+    // const emails = await transporter.sendMail({
+    //     from:'no-reply@2g2m.com.br',
+    //     to:'ti@2g2m.com.br',
+    //     subject:'teste: nodemail1er'
+    // })
+    // console.log(emails);
+   
+        await schedules.createToken()
+
     return res.status(200).json({userDashboard})
    } catch (error) {
-    
+    return res.status(500).json({'Mensagem': error.message})
    }
 }
 

@@ -8,11 +8,11 @@ import loginRoutes from './Routes/loginRoutes.js'
 import deliveryRoutes from './Routes/deliveryRoutes.js'
 
 const app = express();
-/*app.use(cors({
+app.use(cors({
     origin: '*', // Permite requisições de qualquer origem
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'], // Métodos permitidos
     allowedHeaders: ['Content-Type', 'Authorization'] // Headers permitidos
-}));*/
+}));
 
 app.use(express.json());
 app.use('/', loginRoutes)

@@ -4,7 +4,7 @@ export async function apiRequest(url: string, options: RequestInit = {}) {
   
   const headers = {
     'Content-Type': 'application/json',
-    ...(token ? { 'Authorization': `Bearer ${token}` } : {}),
+    ...(token ? { 'Authorization': token } : {}),
     ...options.headers,
   };
 
@@ -22,7 +22,7 @@ export async function apiRequest(url: string, options: RequestInit = {}) {
   const data = await response.json();
 
   if (!response.ok) {
-    throw new Error(data.message || 'Erro na requisição');
+    throw new Error(data.Mensagem || 'Erro na requisição');
   }
 
   return data;
