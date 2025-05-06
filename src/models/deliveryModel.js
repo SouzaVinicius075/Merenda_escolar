@@ -45,16 +45,39 @@ const getByFilter = async (filter)=>{
     }
 }
 const create = async (description)=>{
-    /*const deliveryExists = await database('entregas')
-        .where({'id_pedido': orderId})
-        .first();
-
-    if(deliveryExists)
-        return false*/
 
     const insertDelivery = await database('entregas')
         .insert(description)
         .returning('*');
     return insertDelivery
 }
-export default {get, getByFilter, create}
+const getByDateRange =async (startDate, endDate, _filter)=>{
+    try {
+        const searchDeliveryByDate = await database('delivery')
+            .select(
+                'ped.data_entrega',
+                'ped.creche',
+                'ped.pre_escola',
+                'ped.fund',
+                'ped.func',
+                'ref.nome as nome_ref',
+                'esc.nome as esc_nome',
+                'zon.nome as zon_nome',
+                'ped.entregue'
+
+            )
+            .from('entregas as ent')
+            .whereBetween('ped.data_entrega', [startDate, endDate])
+            .where(_filter)
+            .join('pedidos as ped', 'ent.id_pedido', 'ped.id')
+            .join('escolas as esc', 'ped.escola_id', 'escola_id')
+            .join('refeicoes as ref', 'ped.tipo_ref', 'ref.id')
+            .join('zonas as zon', 'esc.zona', 'zon.id')
+
+        return searchDeliveryByDate
+    } catch (error) {
+        return error.message
+    }
+}
+
+export default {get, getByFilter, create,getByDateRange}

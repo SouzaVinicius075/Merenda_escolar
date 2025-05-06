@@ -7,26 +7,19 @@ const getAll = async()=>{
 const getById = async(_filter)=>{
     if(_filter){
         const result = await database('escolas')
-            .select('escolas.*', 'zonas.nome as Zona_nome')
-            .from('escolas')
-            .join('zonas', 'escolas.zona', 'zonas.id' )
             .where(_filter)
-            .first();
+            .first();     
         return result
 }   else {
     const result = await database('escolas')
-        .select('escolas.*', 'zonas.nome as Zona_nome')
+        .select('escolas.*', 'zonas.nome as Zona_nome', 'usuarios.nome as gestor_nome')
         .from('escolas')
         .join('zonas', 'escolas.zona', 'zonas.id' )
+        .join('usuarios', 'escolas.gestorid', 'usuarios.id')
         return result
     }
 }   
 const create = async (school)=>{
-    if(await getById({'cnpj':school.cnpj})){
-        return false
-    }
-
-
     const schoolCreated = database('escolas')
         .insert(school)
         .returning('*');

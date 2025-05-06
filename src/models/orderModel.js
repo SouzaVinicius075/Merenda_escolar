@@ -80,4 +80,34 @@ const update = async (id, value)=>{
     return updateOrder
 }
 
-export default{get, create,update, getById, getDetailed, getByFilter}
+// const getByDateRange = async (startDate, endDate) =>{
+//     try {
+//         const searchOrder = await database('pedidos')
+//         .select(
+//             'p.data_entrega',
+//             'p.creche',
+//             'p.fund',
+//             'p.func',
+//             'r.nome',
+//             'e.nome'
+//             'p.entregue'
+            
+//         )
+//         .from('pedidos as p')
+//         .whereBetween('data_entrega', [startDate, endDate])
+        
+//         return searchOrder
+//     } catch (error) {
+        
+//     }    
+// }
+
+export default{
+    get, 
+    create,
+    update, 
+    getById, 
+    getDetailed, 
+    getByFilter 
+    //getByDateRange
+}

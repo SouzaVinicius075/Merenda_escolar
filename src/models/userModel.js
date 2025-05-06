@@ -1,5 +1,5 @@
 import database from '../Config/database.js'
-import bcrypt from 'bcrypt'
+
 
 const getById = async(id)=>{
     try {
@@ -17,7 +17,7 @@ const getByEmail = async (_email) => {
     
     const result = _email 
         ? await query.where({ email: _email }).first() 
-        : await query;
+        : await query.select('id','nome', 'email', 'acesso');
 
     if (!result && _email) 
         return false;

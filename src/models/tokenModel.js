@@ -14,12 +14,20 @@ const create = async(id,token)=>{
     }
 }
 const getById = async(id)=>{
-    const getTokenById = database('token')
+    try {
+        const getTokenById = database('tokens')
         .where({'id':id})
+        .first()
+        
+        return getTokenById
+    } catch (error) {
+        return error.message
+    }
+
 }
 const update = async (id, value)=>{
     const updateToken = await database('tokens')
-        .update(value)
+        .update({'token':value})
         .where({'id':id})
         .returning('*');
     return updateToken

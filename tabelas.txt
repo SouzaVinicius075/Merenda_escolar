@@ -1,4 +1,3 @@
-
 -- criação de tabelas
 create table zonas(
   id serial primary key,
@@ -24,20 +23,21 @@ create table usuarios(
 );
 
 insert into usuarios (acesso, nome, email, senha) values
-(1, 'Bira da Silva', 'bira@email.com', 'bira')
-,(2, 'Zeca dos Santos', 'zeca@email','zeca')
-,(2 ,'Igor Pires', 'igor@email', 'igor');
+(1, 'admin', 'admin@admin', '$2b$10$d6vDe5LP6Kq1igx6RQkQf.L/DvdaIa705f7O2eIXk1fvHUEzNYItG')
+,(2, 'Zeca dos Santos', 'zeca@email','$2b$10$mgX7zG1koOgEWew3efAO/ufJRMqdRniIh.p3bDpbHKMNLyrYOU7G6')
+,(2 ,'Igor Pires', 'igor@email', '$2b$10$eFryc6asMJQerbtBKZMFpu/.aZuC3.mKF3g1OgOMBV5x8GsdZF1hS');
 
 create table escolas(
 	id serial primary key,
+  cnpj varchar(14) not null,
 	nome varchar(140) not null,
   zona int references zonas(id),
 	endereco varchar(140) not null,
   gestorid int references usuarios(id)
 );
-insert into escolas ( nome, zona, endereco, gestorid) values
-('CEECR',1,'RUA DA ARGILA S/N',2) 
-,('CEHAS',2,'RUA A S/N',3);
+insert into escolas ( cnpj,nome, zona, endereco, gestorid) values
+('01104740000130','CEECR',1,'RUA DA ARGILA S/N',2) 
+,('01104740000289','CEHAS',2,'RUA A S/N',3);
 
 create table refeicoes (
   id serial primary key,
@@ -59,13 +59,13 @@ create table pedidos (
   fund int default 0,
   func int default 0,
 	tipo_ref int references refeicoes(id),
-	escola_id int references escolas(id)
+	escola_id int references escolas(id),
   entregue bool default false
 );
 
 
 insert into pedidos 
-(data_entrega, creche, pre_escola, fund, func, tipo_ref)
+(data_entrega, creche, pre_escola, fund, func, tipo_ref, escola_id)
 values 
 ('2025-04-17', 10,20,30,40,1,1),
 ('2025-04-17', 10,20,30,40,2,1),
@@ -94,5 +94,23 @@ values
 
 create table tokens (
   id int references escolas(id),
-  token varchar(100)
-)
+  token varchar(255)
+);
+create table dias (
+  id serial primary key,
+  nome varchar(15)
+);
+insert into dias (nome) values 
+('DOMINGO'),
+('SEGUNDA'), 
+('TERCA'), 
+('QUARTA'), 
+('QUINTA'), 
+('SEXTA'),
+('SABADO');
+create table cardapios (
+  id serial primary key,
+  nome varchar(100),
+  diaId int references dias(id),
+  tipo_ref int references refeicoes(id)
+);

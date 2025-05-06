@@ -6,7 +6,10 @@ const routes = express.Router();
 
 routes.use(validateToken.validate)
 routes
-    .get('/', orderController.getOrders)
+    .get('/', orderController.getOrders);
+
+routes.use(validateToken.avaliableTime)
+routes
     .post('/', orderController.createOrder)
     .patch('/', orderController.updateOrder)
 

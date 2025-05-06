@@ -4,7 +4,10 @@ import bcrypt from 'bcrypt'
 const getUser = async(req,res)=>{
     try {
         const user = await userModel.getByEmail()
-        return res.status(200).json(user)
+        const {senha, ...dados} = user
+        console.log(senha);
+        
+        return res.status(200).json(dados)
     } catch (error) {
         return res.status(400).json({'Mensagem': error.message})
     }

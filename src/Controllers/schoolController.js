@@ -2,7 +2,7 @@ import schoolModel from "../models/schoolModel.js";
 import userModel from '../models/orderModel.js'
 import transporter from "../services/nodemailer.js";
 
-import schedules from '../services/schedules.js'
+import tokenController from "./tokenController.js";
 
 const getSchool = async (req, res)=>{
     try {
@@ -14,13 +14,24 @@ const getSchool = async (req, res)=>{
 }
 const createSchool = async (req, res) =>{
     try {
-        const insertSchool = await schoolModel.create(req.body)
-        if(!insertSchool)
-            return res.status(500).json({'Mensagem': 'Escolá já cadastrada'})
+        const {cnpj, nome, zona, endereco, gestorid} = req.body
+        const searchSchool = await schoolModel.getById({'cnpj':cnpj})
+        
+        if(searchSchool){
+            return res.status(500).json({'msg':'Escola já cadastrada'})
+        }
+       const insertSchool = await schoolModel.create({
+        cnpj,
+        nome,
+        zona,
+        endereco,
+        gestorid
+       })
 
+        await tokenController.create(insertSchool[0].id, insertSchool[0].nome)
         return res.status(201).json(insertSchool)
     } catch (error) {
-        
+        return res.status(501).json({'msg':error.message})
     }
 }
 
@@ -35,13 +46,19 @@ const schoolDashboard = async(req, res)=>{
     //     subject:'teste: nodemail1er'
     // })
     // console.log(emails);
-   
-        await schedules.createToken()
-
     return res.status(200).json({userDashboard})
    } catch (error) {
-    return res.status(500).json({'Mensagem': error.message})
+    return res.status(500).json({
+        'aa':'aa',
+        'Mensagem': error.message})
    }
+}
+const update = async(req, res) =>{
+    try {
+        const {} = req.body
+    } catch (error) {
+        
+    }
 }
 
 export default {
