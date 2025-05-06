@@ -1,0 +1,629 @@
+type: collection.insomnia.rest/5.0
+name: Scratch Pad
+meta:
+  id: wrk_scratchpad
+  created: 1742577591244
+  modified: 1742577591244
+collection:
+  - name: Users
+    meta:
+      id: fld_1ea2d8e4167b4be48a9ad8cd32cd59ac
+      created: 1744828800989
+      modified: 1744828800989
+      sortKey: -1744828800989
+    children:
+      - url: http://127.0.0.1:3000/user
+        name: CreateUser
+        meta:
+          id: req_cc08c8e5579f41f5b78f42fdf067f54b
+          created: 1744828805188
+          modified: 1745944834417
+          isPrivate: false
+          sortKey: -1744828805288
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"usr_nome":"Admin",
+            	"usr_email":"admin@admin",
+            	"usr_pwd":"admin",
+            	"usr_acess":1
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.0.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://127.0.0.1:3000/user
+        name: InactiveUser
+        meta:
+          id: req_9f65e70b2fd9420cb989ea40b2f74938
+          created: 1744834583751
+          modified: 1745349820373
+          isPrivate: false
+          sortKey: -1744828805138
+        method: DELETE
+        body:
+          mimeType: application/json
+          text: |-
+            {
+
+            	"usr_email":"caco@email",
+            	"option":true
+
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.0.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://127.0.0.1:3000/user
+        name: GetUser
+        meta:
+          id: req_9973333d59b94da882310ee53c0c70c5
+          created: 1744890102220
+          modified: 1744890111347
+          isPrivate: false
+          sortKey: -1744828805088
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/11.0.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: 127.0.0.1:3000
+        name: Login
+        meta:
+          id: req_748139cb8ab84bbc86935384f4974531
+          created: 1745342314035
+          modified: 1746225430254
+          isPrivate: false
+          sortKey: -1745342314035
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"usr_email":"admin@admin",
+            	"usr_pwd":"admin"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.0.2
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://127.0.0.1:3000/user
+        name: Update User
+        meta:
+          id: req_b85056f2c3c8407c87572d6295e876d5
+          created: 1745350774803
+          modified: 1745350938492
+          isPrivate: false
+          sortKey: -1744828805113
+        method: PATCH
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"id":4,
+            	"email":"caco@email.com",
+            	"nome":"Caco Bastos"
+
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.0.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - name: School
+    meta:
+      id: fld_e880baa99f5341629e7e347f94ab195d
+      created: 1744892005058
+      modified: 1744892005058
+      sortKey: -1744892005058
+    children:
+      - url: http://127.0.0.1:3000/school
+        name: GetSchool
+        meta:
+          id: req_1e8d5e91dc6e4d0b917a7d566ae2bb2e
+          created: 1744893145292
+          modified: 1745610041948
+          isPrivate: false
+          sortKey: -1744892008575
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/11.0.0
+        authentication:
+          type: bearer
+          token: "{{ _.Token }}"
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://127.0.0.1:3000/school
+        name: Create School
+        meta:
+          id: req_2427a69af3c64e3d90cca48c1ff9ac74
+          created: 1745325624811
+          modified: 1746042243601
+          isPrivate: false
+          sortKey: -1744860406931.5
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"cnpj":"01104740000141",
+            	"nome":"COPESa",
+            	"zona":2,
+            	"endereco": "RUA B CAM E120",
+            	"gestorid":2
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.0.0
+        authentication:
+          type: bearer
+          token: "{{ _.Token }}"
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://127.0.0.1:3000/school/dashboard
+        name: Dashboard
+        meta:
+          id: req_42ddabde228440038cdaa5b17c422985
+          created: 1745611083542
+          modified: 1745936352187
+          isPrivate: false
+          sortKey: -1744844606109.75
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/11.0.0
+        authentication:
+          type: bearer
+          token: "{{ _.Token }}"
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - name: Order
+    meta:
+      id: fld_b520ca7c7b9c4c90bb45be535052e3b4
+      created: 1745330115680
+      modified: 1745330123366
+      sortKey: -1745330115680
+    children:
+      - url: http://127.0.0.1:3000/order
+        name: GetOrders
+        meta:
+          id: req_b43672f512964c329d4cfd8efa96bde7
+          created: 1745330128179
+          modified: 1745849176140
+          isPrivate: false
+          sortKey: -1745408049008
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/11.0.0
+        authentication:
+          type: bearer
+          token: "{{ _.Token }}"
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://127.0.0.1:3000/order
+        name: Create Order
+        meta:
+          id: req_ed8c66c7d22e4cb282b4090b6da8274b
+          created: 1745333989329
+          modified: 1746043599915
+          isPrivate: false
+          sortKey: -1745408049108
+        method: POST
+        body:
+          mimeType: application/json
+          text: |
+            {
+            	"orders":[
+            		{
+            		"data_entrega":"2025-05-03",
+            		"creche":10,
+            		"pre_escola":40,
+            		"fund":100,
+            		"func":90,
+            		"tipo_ref":1
+            	},
+            	{
+            	"data_entrega":"2025-05-06",
+            	"creche":10,
+            	"pre_escola":40,
+            	"fund":100,
+            	"func":90,
+            	"tipo_ref":2
+            	},	{
+            	"data_entrega":"2025-05-06",
+            	"creche":10,
+            	"pre_escola":40,
+            	"fund":100,
+            	"func":90,
+            	"tipo_ref":3
+            	},	{
+            	"data_entrega":"2025-05-06",
+            	"creche":10,
+            	"pre_escola":40,
+            	"fund":100,
+            	"func":90,
+            	"tipo_ref":4
+            	},
+            	{
+            	"data_entrega":"2025-05-06",
+            	"creche":10,
+            	"pre_escola":40,
+            	"fund":100,
+            	"func":90,
+            	"tipo_ref":5
+            	}]
+            	}
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.0.0
+        authentication:
+          type: bearer
+          token: "{{ _.Token }}"
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://127.0.0.1:3000/order
+        name: Update Order
+        meta:
+          id: req_a3becfcb749c44e49006d96afcf1273c
+          created: 1745851653749
+          modified: 1745858253515
+          isPrivate: false
+          sortKey: -1745408049058
+        method: PATCH
+        body:
+          mimeType: application/json
+          text: |
+            {
+            	"orders":[
+            		{
+            		"data_entrega":"2025-05-02",
+            		"creche":10,
+            		"pre_escola":40,
+            		"fund":100,
+            		"func":90,
+            		"idPedido":38
+            	},
+            	{
+            	"data_entrega":"2025-05-01",
+            		"idPedido":39
+            	},	{
+
+            	"fund":100,
+            	"func":90,
+            		"idPedido":40
+            	},	{
+            	"data_entrega":"2025-05-01",
+            		"idPedido":41
+            	},
+            	{
+            	"data_entrega":"2025-05-01",
+            	"creche":2,
+            	"pre_escola":3,
+            	"fund":1,
+            	"func":4,
+            		"idPedido":42
+            	}]
+            	}
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.0.0
+        authentication:
+          type: bearer
+          token: "{{ _.Token }}"
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://127.0.0.1:3000/order
+        name: School Orders
+        meta:
+          id: req_109bad0a6ae842c1b080277169c72854
+          created: 1745863098620
+          modified: 1745863098620
+          isPrivate: false
+          sortKey: -1745375181521.5
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/11.0.0
+        authentication:
+          type: bearer
+          token: "{{ _.Token }}"
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - name: Delivery
+    meta:
+      id: fld_2aa7261cb3b24e9cb878de2ccb4dee24
+      created: 1745408063304
+      modified: 1745408063304
+      sortKey: -1745408063305
+    children:
+      - url: "{{ _.app }}/delivery"
+        name: Get Delivery
+        meta:
+          id: req_ba138909f8bf4a9db02b70c135a4811a
+          created: 1745408067255
+          modified: 1745943882376
+          isPrivate: false
+          sortKey: -1745408067255
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/11.0.2
+        authentication:
+          type: bearer
+          token: "{{ _.Token }}"
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _.app }}/delivery"
+        name: Register Delivery
+        meta:
+          id: req_9a1946ae97e8466d8b0f1838fbc59e15
+          created: 1745517404575
+          modified: 1746037027013
+          isPrivate: false
+          sortKey: -1745408058181.5
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"data_entrega":"2025-05-01",
+            	"tipo":"parcial",
+            	"orders":[{
+            		"tipo":"DESJEJUM",
+            		"creche":5,
+            		"pre_escola":2,
+            		"fund":3,
+            		"func":4
+            	},
+            	{
+            		"tipo":"LANCHE1",
+            		"creche":1,
+            		"pre_escola":2,
+            		"fund":3,
+            		"func":4
+            	},
+            	{
+            		"tipo":"ALMOCO",
+            		"creche":1,
+            		"pre_escola":2,
+            		"fund":3,
+            		"func":4
+            	},
+            	{
+            		"tipo":"LANCHE2",
+            		"creche":1,
+            		"pre_escola":2,
+            		"fund":3,
+            		"func":4
+            	},
+            	{
+            		"tipo":"CAFE L",
+            		"creche":100,
+            		"pre_escola":200,
+            		"fund":300,
+            		"func":400
+            	}
+            	]
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.0.2
+        authentication:
+          type: bearer
+          token: "{{ _.Token }}"
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _.app }}/delivery/t"
+        name: test Delivery
+        meta:
+          id: req_5bc1331975a747d4bb7ff4352e9a292a
+          created: 1746209789161
+          modified: 1746210005648
+          isPrivate: false
+          sortKey: -1745408062718.25
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"startDate":"2025-01-01",
+            	"endDate":"2025-05-30"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.0.2
+        authentication:
+          type: bearer
+          token: "{{ _.Token }}"
+          disabled: true
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - name: Menu
+    meta:
+      id: fld_1638b050bc384ad1a0f418e4a43a918a
+      created: 1746449160141
+      modified: 1746449160141
+      sortKey: -1746449160141
+    children:
+      - url: "{{ _.app }}/food"
+        name: Create Menu
+        meta:
+          id: req_11d351522542446faf35aa93a83b8490
+          created: 1746449168103
+          modified: 1746452395117
+          isPrivate: false
+          sortKey: -1746449168103
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"nome":"Batata Frita",
+            	"diaid":6,
+            	"tipo_ref":4
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.0.2
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _.app }}/food"
+        name: Get Menu
+        meta:
+          id: req_7359e335a7a241b2a184d77a01ddde00
+          created: 1746451466080
+          modified: 1746451472577
+          isPrivate: false
+          sortKey: -1745928617679
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/11.0.2
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+cookieJar:
+  name: Default Jar
+  meta:
+    id: jar_99d30891da4bdcebc63947a8fc17f076de878684
+    created: 1742577624393
+    modified: 1742577624393
+environments:
+  name: Base Environment
+  meta:
+    id: env_99d30891da4bdcebc63947a8fc17f076de878684
+    created: 1742577624286
+    modified: 1746469523785
+    isPrivate: false
+  data:
+    Token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibm9tZSI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBhZG1pbiIsImFjZXNzbyI6MSwibm9tZUVzY29sYSI6bnVsbCwiaWRFc2NvbGEiOm51bGwsImlhdCI6MTc0NjQ2OTUxMSwiZXhwIjoxNzQ2NDc2NzExfQ.rqUt65523XHCBRmFazCbSZTCRFpgTyf7TTaOnvgbcCI
+    app: http://localhost:3000
