@@ -10,3 +10,9 @@ APP_URL=http://localhost
 APP_PORT=3000
 
 JWT_SECRET=SECUREJWT
+
+ADMIN_EMAIL="user@email.com.br"
+EMAIL_PWD="UserPwd"
+SMTP_HOST="stmp-host.com"
+SMTP_PORT="smtpPort" 
+# Caso o servidor não possua criptografia lembrar de alterar no arquivo src/Config/Nodemailer

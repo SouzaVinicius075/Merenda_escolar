@@ -7,5 +7,6 @@ routes
 .get('/', schoolController.getSchool)
 .post('/', schoolController.createSchool)
 .get('/dashboard', schoolController.schoolDashboard)
+.put('/', schoolController.update)
 
 export default routes

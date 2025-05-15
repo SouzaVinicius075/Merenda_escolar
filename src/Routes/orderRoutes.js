@@ -6,7 +6,8 @@ const routes = express.Router();
 
 routes.use(validateToken.validate)
 routes
-    .get('/', orderController.getOrders);
+    .get('/', orderController.getOrders)
+    .get('/:status', orderController.getOrders);
 
 routes.use(validateToken.avaliableTime)
 routes

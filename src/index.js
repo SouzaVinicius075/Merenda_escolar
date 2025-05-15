@@ -2,11 +2,12 @@ import 'dotenv/config';
 import express from 'express';
 import cors from 'cors';
 import userRoutes from './Routes/userRoutes.js'
-import schoolRoutes from './Routes/schoolroutes.js'
+import schoolRoutes from './Routes/schoolRoutes.js'
 import orderRoutes from './Routes/orderRoutes.js'
 import loginRoutes from './Routes/loginRoutes.js'
 import deliveryRoutes from './Routes/deliveryRoutes.js'
 import foodRoutes from './Routes/foodRoutes.js'
+import testRoutes from './Routes/testsRoutes.js'
 import agenda from './services/schedules.js'
 
 
@@ -18,6 +19,7 @@ app.use(cors({
     allowedHeaders: ['Content-Type', 'Authorization'] // Headers permitidos
 }));
 app.use(express.json());
+app.use('/tests', testRoutes)
 app.use('/', loginRoutes)
 app.use('/user', userRoutes)
 app.use('/school', schoolRoutes)

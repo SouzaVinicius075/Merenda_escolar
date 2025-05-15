@@ -1,9 +1,9 @@
 import express from "express";
 import deliveryController from "../Controllers/deliveryController.js";
- import validateToken from '../middleware/validateToken.js'
+import validateToken from '../middleware/validateToken.js'
 const routes = express.Router();
 
-routes.post('/t', deliveryController.dashboard)
+routes.post('/filter', deliveryController.dashboard)
 routes.use(validateToken.validate)
 routes
     .get('/', deliveryController.getDelivery)

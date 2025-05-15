@@ -5,6 +5,7 @@ const getAll = async()=>{
     return getAllSchools
 }
 const getById = async(_filter)=>{
+try {
     if(_filter){
         const result = await database('escolas')
             .where(_filter)
@@ -18,6 +19,9 @@ const getById = async(_filter)=>{
         .join('usuarios', 'escolas.gestorid', 'usuarios.id')
         return result
     }
+} catch (error) {
+    return error.message
+}
 }   
 const create = async (school)=>{
     const schoolCreated = database('escolas')
@@ -25,8 +29,16 @@ const create = async (school)=>{
         .returning('*');
         return schoolCreated
 }
-const update = async ()=>{
-
+const update = async (id, values)=>{
+    try {
+        const updateSchool = await database('escolas')
+            .update(values)
+            .where({id});
+        
+        return updateSchool
+    } catch (error) {
+        return error.message
+    }
 }
 const toggleStatus = async()=>{
 

@@ -1,10 +1,14 @@
 import express from "express";
 import foodController from "../Controllers/foodController.js";
- import validateToken from '../middleware/validateToken.js'
+import validateToken from '../middleware/validateToken.js'
 const routes = express.Router();
 
+validateToken.validate
+routes.get('/', foodController.get)
+//validateToken.isAdminUser()
 routes
-    .get('/', foodController.get)
     .post('/', foodController.create)
+    .patch('/', foodController.update)
+    .delete('/', foodController.remove)
 
 export default routes

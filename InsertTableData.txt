@@ -1,0 +1,76 @@
+-- inserção de dados default no banco
+insert into zonas (nome) values ('urbana'), ('rural');
+
+insert into acessos (nome) values ('admin'), ('diretor');
+
+insert into usuarios (acesso, nome, email, senha) values
+(1, 'admin', 'admin@admin', '$2b$10$d6vDe5LP6Kq1igx6RQkQf.L/DvdaIa705f7O2eIXk1fvHUEzNYItG')
+,(2, 'Zeca dos Santos', 'zeca@2g2m.com.br','$2b$10$mgX7zG1koOgEWew3efAO/ufJRMqdRniIh.p3bDpbHKMNLyrYOU7G6')
+,(2 ,'Igor Pires', 'igor@2g2m.com.br', '$2b$10$eFryc6asMJQerbtBKZMFpu/.aZuC3.mKF3g1OgOMBV5x8GsdZF1hS');
+
+insert into escolas ( cnpj,nome, zona, endereco, gestorid) values
+('01104740000130','CEECR - COLEGIO ESTADUAL ERNESTO CARNEIRO RIBEIRO',1,'RUA DA ARGILA S/N',2) 
+,('01104740000289','CEHAS - COLÉGIO ESTADUAL HELENA ASSIS SUZART',2,'RUA A S/N',3);
+
+insert into refeicoes (nome) values 
+('DESJEJUM')
+,('LANCHE1')
+,('ALMOCO')
+,('LANCHE2')
+,('CAFE L');
+
+insert into pedidos 
+(data_entrega, creche, pre_escola, fund, func, tipo_ref, escola_id)
+values 
+('2025-04-17', 10,20,30,40,1,1),
+('2025-04-17', 10,20,30,40,2,1),
+('2025-04-17', 10,20,30,40,3,1),
+('2025-04-17', 10,20,30,40,4,1),
+('2025-04-17', 10,20,30,40,5,1),
+('2025-04-17', 10,20,30,40,1,2),
+('2025-04-17', 10,20,30,40,2,2),
+('2025-04-17', 10,20,30,40,3,2),
+('2025-04-17', 10,20,30,40,4,2),
+('2025-04-17', 10,20,30,40,5,2);
+
+insert into entregas (id_pedido, creche, pre_escola, fund, func)
+values 
+(1, 10,20,30,40),
+(2, 10,20,30,40);
+
+insert into dias (nome) values 
+('DOMINGO'),
+('SEGUNDA'), 
+('TERCA'), 
+('QUARTA'), 
+('QUINTA'), 
+('SEXTA'),
+('SABADO');
+
+insert into cardapios 
+(nome, diaId, tipo_ref)
+values
+--DESJEJUM
+('PAO COM OVO',2,1),
+('PAO COM OVO',3,1),
+('PAO COM OVO',4,1),
+('PAO COM OVO',5,1),
+('PAO COM OVO',6,1),
+--LANCHE1
+('KAPO COM BISCOITO',2,2),
+('BOLO DE CENOURA',3,2),
+('BOLO DE CHOCOLATE',4,2),
+('MINGAU DE AVEIA',5,2),
+('MISTO',6,2),
+--ALMOCO
+('BIFE ACEBOLADO, ARROZ E FEIJAO',2,3),
+('LASANHA DE FRANGO',3,3),
+('MACARRAO NA PANELA DE PRESSAO',4,3),
+('PANQUECA',5,3),
+('OMELETE',6,3),
+--LANCHE2
+('COOKIE',2,4),
+('PAO DE QUEIJO',3,4),
+('MISTO',4,4),
+('BROWNIE',5,4),
+('PIZZA',6,4);
