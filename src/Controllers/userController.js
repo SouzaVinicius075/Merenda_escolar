@@ -1,4 +1,4 @@
-import userModel from '../models/userModel.js'
+import userModel from '../Models/userModel.js'
 import bcrypt from 'bcrypt'
 
 const getUser = async (req, res) => {
@@ -46,6 +46,10 @@ const SwitchUserStatus = async (req, res) => {
 
 const updateUser = async (req, res) => {
     try {
+        if (req.body.senha) {
+            const pwdEncrypted = await bcrypt.hash(req.body.senha, 10)
+            req.body.senha = pwdEncrypted
+        }
         const userUpdated = await userModel.update(req.body)
 
         if (!userUpdated)

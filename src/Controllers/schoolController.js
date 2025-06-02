@@ -1,5 +1,5 @@
-import schoolModel from "../models/schoolModel.js";
-import userModel from '../models/orderModel.js'
+import schoolModel from "../Models/schoolModel.js";
+import userModel from '../Models/orderModel.js'
 import tokenController from "./tokenController.js";
 
 const getSchool = async (req, res) => {

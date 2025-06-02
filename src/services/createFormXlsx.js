@@ -1,6 +1,6 @@
 import excel from 'exceljs'
 import database from '../Config/database.js'
-import reportModel from '../models/reportModel.js'
+import reportModel from '../Models/reportModel.js'
 
 const createFormExcel = async () => {
     const workbook = new excel.Workbook()

@@ -1,5 +1,5 @@
 import transporter from '../Config/nodemailer.js'
-import userModel from '../models/userModel.js'
+import userModel from '../Models/userModel.js'
 
 const message = async () => {
   try {
@@ -25,4 +25,3 @@ const message = async () => {
 
 
 export default { message }
-// console.log(emails);

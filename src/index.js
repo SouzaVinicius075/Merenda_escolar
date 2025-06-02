@@ -7,6 +7,7 @@ import orderRoutes from './Routes/orderRoutes.js'
 import loginRoutes from './Routes/loginRoutes.js'
 import deliveryRoutes from './Routes/deliveryRoutes.js'
 import foodRoutes from './Routes/foodRoutes.js'
+import reportRoutes from './Routes/reportRoutes.js'
 import testRoutes from './Routes/testsRoutes.js'
 import agenda from './services/schedules.js'
 
@@ -26,6 +27,7 @@ app.use('/school', schoolRoutes)
 app.use('/order', orderRoutes)
 app.use('/delivery', deliveryRoutes)
 app.use('/food', foodRoutes)
+app.use('/report', reportRoutes)
 app.listen(process.env.APP_PORT, () => {
     console.log(`Server running on ${process.env.APP_URL}:${process.env.APP_PORT}/`);
 })

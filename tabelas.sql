@@ -29,7 +29,8 @@ create table escolas(
 
 create table refeicoes (
   id serial primary key,
-  nome varchar(15)
+  nome varchar(15),
+  preco_unit numeric(4,2)
 );
 
 create table pedidos (

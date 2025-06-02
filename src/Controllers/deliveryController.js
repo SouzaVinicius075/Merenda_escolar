@@ -1,5 +1,5 @@
-import deliveryModel from "../models/deliveryModel.js";
-import orderModel from '../models/orderModel.js'
+import deliveryModel from "../Models/deliveryModel.js";
+import orderModel from '../Models/orderModel.js'
 import deliverySchema from "../schemas/deliverySchema.js";
 
 const getDelivery = async (req, res) => {
@@ -16,6 +16,7 @@ const getDelivery = async (req, res) => {
 const registerDelivery = async (req, res) => {
     try {
         const { deliveries, escola_id, data_entrega } = req.body
+        req.body.deliveries
         for (const delivery of deliveries) {
             await deliverySchema.validate({
                 creche: delivery.creche,

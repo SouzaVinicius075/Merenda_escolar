@@ -1,12 +1,13 @@
 import jwt from 'jsonwebtoken'
-import tokenModel from '../models/tokenModel.js'
-import schoolModel from '../models/schoolModel.js'
+import tokenModel from '../Models/tokenModel.js'
+import schoolModel from '../Models/schoolModel.js'
 const create = async (id, nome) => {
     const schoolTokens = await tokenModel.getById(id)
     if (schoolTokens) {
-        update(schoolTokens.id)
-    }
 
+        update(schoolTokens.id)
+        return
+    }
     const now = new Date()
     const target = new Date()
     let timingRemain = 0
@@ -23,9 +24,7 @@ const create = async (id, nome) => {
         expiresIn: `${timingRemain}h`
     })
     await tokenModel.create(id, token)
-
 }
-
 const update = async (id) => {
     try {
         const school = await schoolModel.getById({ 'id': id })
@@ -51,13 +50,9 @@ const update = async (id) => {
         jwt.verify(token, process.env.JWT_SECRET)
 
         await tokenModel.update(school.id, token)
-
-
         return true
     } catch (error) {
         return res.status(504).json({ 'msg': error.message })
     }
-
 }
-
 export default { update, create }

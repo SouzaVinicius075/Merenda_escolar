@@ -19,6 +19,19 @@ const getByFilter = async (filter) => {
         return false
     }
 }
+const getByRange = async (filter) => {
+    try {
+        console.log(filter);
+
+        const getOrderByFilter = await database('pedidos')
+            .where({ 'escola_id': filter.escola_id })
+            .whereBetween('data_entrega', [filter.startDate, filter.endDate])
+
+        return getOrderByFilter
+    } catch (error) {
+        return error.message
+    }
+}
 const getById = async (id) => {
     try {
         const getorders = await database('pedidos')
@@ -48,12 +61,14 @@ const getDetailed = async (filter) => {
                 'ent.pre_escola as e.pre_escola',
                 'ent.fund as e.fundamental',
                 'ent.func as e.funcionarios',
-                'ped.entregue'
+                'ped.entregue',
+                'zon.nome as zona'
             )
             .from('pedidos as ped')
             .leftJoin('entregas as ent', 'ped.id', 'ent.id_pedido')
             .join('escolas as esc', 'ped.escola_id', 'esc.id')
             .join('refeicoes as ref', 'ped.tipo_ref', 'ref.id')
+            .join('zonas as zon', 'esc.zona', 'zon.id')
             .where(filter)
             .orderBy('ref.id', 'asc')
         return getorderDetailed
@@ -109,6 +124,6 @@ export default {
     update,
     getById,
     getDetailed,
-    getByFilter
-    //getByDateRange
+    getByFilter,
+    getByRange
 }

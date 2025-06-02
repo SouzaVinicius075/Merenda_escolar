@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
-import userModel from '../models/userModel.js';
-import tokenModel from '../models/tokenModel.js';
+import userModel from '../Models/userModel.js';
+import tokenModel from '../Models/tokenModel.js';
 
 const validate = async (req, res, next) => {
     try {
@@ -16,9 +16,6 @@ const validate = async (req, res, next) => {
         }
         const { senha, iat, exp, ...user } = userLogged;
         req.user = user;
-        console.log(req.user);
-
-
         next();
     } catch (error) {
         return res.status(401).json({
@@ -50,11 +47,8 @@ const isSchool = async (req, res, next) => {
 const avaliableTime = async (req, res, next) => {
     try {
         const { idEscola } = req.user
-
         const tokenValid = await tokenModel.getById(idEscola)
         jwt.verify(tokenValid.token, process.env.JWT_SECRET)
-
-
         next()
     } catch (error) {
         return res.status(500).json({ 'Aviso': 'Pedido fora do horário permitido, todos pedidos deverão ser registrados entre 00 e 16 horas' })
